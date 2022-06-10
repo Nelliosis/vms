@@ -26,8 +26,57 @@
 
 package com.nelliosis.vendingmachine;
 
+//import java.io.BufferedReader;
+//import java.io.FileNotFoundException;
+//import java.io.FileReader;
+import java.io.IOException;
+//import java.io.Reader;
+//import java.nio.file.Files;
+//import java.nio.file.Paths;
+//import java.util.Map;
+
+//import com.google.gson.Gson;
+//import com.google.gson.JsonObject;
+
+import org.json.*;
+
 public class Application {
-  public static void main(String[] args) {
-    System.out.println("Hello World!");
+  public static void main(String[] args) throws IOException {
+
+    // declare a new instance of FManip and copy path to FilePath
+    FileManipulator fm = new FileManipulator();
+    String FilePath = fm.ChooseFile();
+
+    // copy JSON content into String and transform into an object
+    String file = fm.FileToString(FilePath);
+    JSONObject obj = new JSONObject(file);
+
+    // Separate config and items
+    JSONObject config = obj.getJSONObject("config");
+    JSONArray items = obj.getJSONArray("items");
+
+    System.out.println(config);
+    System.out.println(items);
+
   }
 }
+/*
+ * Gson gson = new Gson();
+ * 
+ * try {
+ * Reader reader = Files.newBufferedReader(Paths.get(SelectedFile));
+ * 
+ * // convert JSON file to map
+ * Map<?, ?> map = gson.fromJson(reader, Map.class);
+ * 
+ * // print map entries
+ * for (Map.Entry<?, ?> entry : map.entrySet()) {
+ * System.out.println(entry.getKey() + "=" + entry.getValue());
+ * }
+ * 
+ * // close reader
+ * reader.close();
+ * } catch (IOException e) {
+ * e.printStackTrace();
+ * }
+ */
