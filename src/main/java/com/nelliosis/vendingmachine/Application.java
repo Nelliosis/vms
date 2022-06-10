@@ -26,18 +26,7 @@
 
 package com.nelliosis.vendingmachine;
 
-//import java.io.BufferedReader;
-//import java.io.FileNotFoundException;
-//import java.io.FileReader;
 import java.io.IOException;
-//import java.io.Reader;
-//import java.nio.file.Files;
-//import java.nio.file.Paths;
-//import java.util.Map;
-
-//import com.google.gson.Gson;
-//import com.google.gson.JsonObject;
-
 import org.json.*;
 
 public class Application {
@@ -60,23 +49,3 @@ public class Application {
 
   }
 }
-/*
- * Gson gson = new Gson();
- * 
- * try {
- * Reader reader = Files.newBufferedReader(Paths.get(SelectedFile));
- * 
- * // convert JSON file to map
- * Map<?, ?> map = gson.fromJson(reader, Map.class);
- * 
- * // print map entries
- * for (Map.Entry<?, ?> entry : map.entrySet()) {
- * System.out.println(entry.getKey() + "=" + entry.getValue());
- * }
- * 
- * // close reader
- * reader.close();
- * } catch (IOException e) {
- * e.printStackTrace();
- * }
- */
