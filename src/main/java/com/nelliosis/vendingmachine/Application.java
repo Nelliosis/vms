@@ -27,15 +27,20 @@
 package com.nelliosis.vendingmachine;
 
 import java.io.IOException;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Scanner;
+
 import org.json.*;
+
+import dnl.utils.text.table.TextTable;
 
 public class Application {
   public static void main(String[] args) throws IOException {
     ClearConsole();
-    // declare a new instance of FManip, FilePath variable, and user input
+    // declare a new instance of FManip, VendLogic, FilePath variable, and user
     FileManipulator fm = new FileManipulator();
+    VendingLogic vl = new VendingLogic();
     String SelectedFile;
     Scanner input = new Scanner(System.in);
 
@@ -69,6 +74,7 @@ public class Application {
             break;
         }
       } else {
+        fm.LoadData();
         break;
       }
     } while (ch == 'Y' || ch == 'y');
@@ -77,10 +83,46 @@ public class Application {
     ClearConsole();
 
     System.out.println("\t\tYour Run of the Mill Vending Machine.");
-    System.out.println(SelectedFile);
+
+    // Declare config, items, selection codes array and hash table
+    JSONObject config = fm.GetFileConfig();
+    JSONArray items = fm.GetFileItems();
+    int VendingCodes[] = new int[items.length()];
+    Hashtable<Integer, JSONObject> ht = new Hashtable<Integer, JSONObject>(items.length());
+
+    /*
+     * Declare random codes for items
+     * Then hash each code to each item
+     */
+    VendingCodes = fm.VendingCodes();
+    vl.hash(ht, VendingCodes, items);
+
+    // parse config data into variables
+    int col = fm.ParseConfigColumn(config);
+    int row = fm.ParseConfigRow(config);
+
+    /*
+     * for (int i = 0; i < 2; i++) {
+     * for (int j = 0; j < row; j++) {
+     * for (int k = 0; k < col; k++) {
+     * 
+     * }
+     * }
+     * }
+     */
+
+    // iterate through Hash table
+    /*
+     * for (Entry<Integer, JSONObject> e : ht.entrySet()) {
+     * // Logic for iterating through HashTable from GeeksForGeeks at:
+     * // https://www.geeksforgeeks.org/hashtable-in-java/
+     * System.out.println(e.getKey() + " " + e.getValue());
+     * }
+     */
     // fm.DestroyPref();
     input.close();
     System.exit(0);
+
   }
 
   public static void ClearConsole() {
@@ -110,9 +152,4 @@ public class Application {
  * }
  * System.out.println("\n\n");
  * }
- */
-/*
- * // parse data into int
- * int col = Integer.parseInt((config.getString("columns")));
- * System.out.println(col);
  */
