@@ -27,25 +27,92 @@
 package com.nelliosis.vendingmachine;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Scanner;
 import org.json.*;
 
 public class Application {
   public static void main(String[] args) throws IOException {
-
-    // declare a new instance of FManip and copy path to FilePath
+    ClearConsole();
+    // declare a new instance of FManip, FilePath variable, and user input
     FileManipulator fm = new FileManipulator();
-    String FilePath = fm.ChooseFile();
+    String SelectedFile;
+    Scanner input = new Scanner(System.in);
 
-    // copy JSON content into String and transform into an object
-    String file = fm.FileToString(FilePath);
-    JSONObject obj = new JSONObject(file);
+    System.out.println("Vending Machine Software");
 
-    // Separate config and items
-    JSONObject config = obj.getJSONObject("config");
-    JSONArray items = obj.getJSONArray("items");
+    // Retrieve file
+    System.out.println("Checking for File.");
 
-    System.out.println(config);
-    System.out.println(items);
+    SelectedFile = fm.RetrieveFile();
 
+    // If there is no file detected, select and save the path to preferences.
+    System.out.print("No File loaded. Load file? [Y/N]: ");
+    char ch;
+    do {
+      if (SelectedFile == null) {
+        ch = input.next().charAt(0);
+        switch (ch) {
+          case 'Y':
+          case 'y':
+            fm.ChooseFile();
+            fm.SaveFile();
+            SelectedFile = fm.RetrieveFile();
+            break;
+          case 'N':
+          case 'n':
+            System.out.println("Program cannot run without an input file. Program will close.");
+            System.exit(1);
+            break;
+          default:
+            System.out.print("Incorrect choice. Load a File? [Y/N]: ");
+            break;
+        }
+      } else {
+        break;
+      }
+    } while (ch == 'Y' || ch == 'y');
+
+    System.out.println("File Detected.");
+    ClearConsole();
+
+    System.out.println("\t\tYour Run of the Mill Vending Machine.");
+    System.out.println(SelectedFile);
+    // fm.DestroyPref();
+    input.close();
+    System.exit(0);
   }
+
+  public static void ClearConsole() {
+    // Clears Screen in java. Works for both Windows and UNIX-based systems.
+    try {
+      if (System.getProperty("os.name").contains("Windows"))
+        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+      else
+        new ProcessBuilder("clear").inheritIO().start().waitFor();
+    } catch (IOException | InterruptedException ex) {
+      System.out.println("Error at clearing the screen");
+      ex.printStackTrace();
+    }
+  }
+
 }
+
+// iterature through jsonarray and print
+/*
+ * for (int i = 0; i < items.length(); i++) {
+ * JSONObject json = items.getJSONObject(i);
+ * Iterator<String> keys = json.keys();
+ * 
+ * while (keys.hasNext()) {
+ * String key = keys.next();
+ * System.out.println(key + " " + json.get(key));
+ * }
+ * System.out.println("\n\n");
+ * }
+ */
+/*
+ * // parse data into int
+ * int col = Integer.parseInt((config.getString("columns")));
+ * System.out.println(col);
+ */
