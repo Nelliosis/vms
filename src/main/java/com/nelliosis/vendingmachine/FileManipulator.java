@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 import java.util.prefs.Preferences;
 
 public class FileManipulator {
@@ -19,7 +20,9 @@ public class FileManipulator {
     private File file; // File Object
     private String FileData; // File as a String
     private String FilePath; // File path as a String
-    // private String PrefPath; // Path stored in preferences
+    Preferences prefs = Preferences.userRoot().node(this.getClass().getName()); // File path to remember by system
+
+    Scanner input = new Scanner(System.in);
 
     // Function that selects and returns a file of type JSON
     public void ChooseFile() throws IOException {
@@ -28,11 +31,29 @@ public class FileManipulator {
 
         // set filter and open the dialogbox
         FileChooser.setFileFilter(FileFilter);
-        FileChooser.showOpenDialog(null);
 
-        // store choice into a variable and log the filepath.
-        this.file = FileChooser.getSelectedFile();
-        this.FilePath = file.getAbsolutePath();
+        // Open a Java window and allow for file selection
+        char ch;
+        do {
+            System.out.println("A window will open shortly.");
+            FileChooser.showOpenDialog(null);
+            try {
+                // store choice into a variable and log the filepath.
+                // if in any of the variables point to null, ask to try again
+                this.file = FileChooser.getSelectedFile();
+                this.FilePath = file.getAbsolutePath();
+                break;
+            } catch (NullPointerException e) {
+                System.out.print("You must choose a file to load the program. Try again? [Y/N]: ");
+                ch = input.next().charAt(0);
+            }
+
+            // If the user selects no, the program will exit.
+            if (ch == 'n' || ch == 'N') {
+                System.out.println("Exiting program.");
+                System.exit(1);
+            }
+        } while (ch == 'Y' || ch == 'y');
 
         System.out.println("File Selected at: " + this.FilePath);
 
@@ -41,24 +62,31 @@ public class FileManipulator {
     }
 
     public void SaveFile() {
-        // Declare preferences
-        Preferences prefs = Preferences.userRoot().node(this.getClass().getName());
-
         // If success, return true. If not, return false.
         try {
-            prefs.put("PREF_PATH", this.FilePath);
+            this.prefs.put("PREF_PATH", this.FilePath);
             System.out.println("File " + this.file.getName() + " has been stored");
         } catch (Exception e) {
             throw e;
         }
     }
 
-    public String RetrieveFile() throws IOException {
-
-        Preferences prefs = Preferences.userRoot().node(this.getClass().getName());
-
+    public void DestroyPref() {
+        // destroy the remembered path
         try {
-            return prefs.get("PREF_PATH", null);
+            this.prefs.remove("PREF_PATH");
+        } catch (Exception e) {
+            System.out.println("Something went wrong while deleting the preference. See:");
+            e.printStackTrace();
+        }
+
+    }
+
+    public String RetrieveFile() {
+
+        // return the path if it exists, if not return null
+        try {
+            return this.prefs.get("PREF_PATH", null);
         } catch (Exception e) {
             return null;
         }
