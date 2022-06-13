@@ -5,6 +5,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -61,6 +62,12 @@ public class FileManipulator {
         this.FileData = new String(Files.readAllBytes(Paths.get(this.FilePath)));
     }
 
+    public void LoadData() throws IOException {
+        this.file = new File(RetrieveFile());
+        this.FilePath = RetrieveFile();
+        this.FileData = new String(Files.readAllBytes(Paths.get(this.FilePath)));
+    }
+
     public void SaveFile() {
         // If success, return true. If not, return false.
         try {
@@ -101,8 +108,43 @@ public class FileManipulator {
 
     public JSONArray GetFileItems() {
         JSONObject object = new JSONObject(this.FileData);
-        JSONArray items = object.getJSONArray("Items");
+        JSONArray items = object.getJSONArray("items");
         return items;
+    }
+
+    public int[] VendingCodes() {
+        JSONArray data = GetFileItems();
+        int length = data.length();
+        // Declare codes array, the min and max values.
+        int Codes[] = new int[length];
+        int max = 600;
+        int min = 500;
+
+        /*
+         * Math logic from educative.io at:
+         * https://www.educative.io/answers/how-to-generate-random-numbers-in-java
+         */
+        for (int i = 0; i < length; i++) {
+            Codes[i] = (int) Math.floor(Math.random() * (max - min + 1) + min);
+        }
+
+        return Codes;
+    }
+
+    public int ParseConfigColumn(JSONObject config) {
+        try {
+            return config.getInt("column");
+        } catch (JSONException e) {
+            return Integer.parseInt((config.getString("columns")));
+        }
+    }
+
+    public int ParseConfigRow(JSONObject config) {
+        try {
+            return config.getInt("rows");
+        } catch (JSONException e) {
+            return Integer.parseInt((config.getString("rows")));
+        }
     }
 
 }
