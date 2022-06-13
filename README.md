@@ -57,7 +57,13 @@ Guides:
 * [How to clear the Console on StackOverFlow](https://stackoverflow.com/questions/2979383/how-to-clear-the-console/33379766#33379766)
 * [Clear the Console on Java on DelftStack](https://www.delftstack.com/howto/java/java-clear-console/)
 * [Types of Exceptions in Java by Stackify](https://stackify.com/types-of-exceptions-java/)
-
+* [Arrays in Java on GeeksForGeeks](https://www.geeksforgeeks.org/arrays-in-java/)
+* [How to generate random numbers in Java on educative.io](https://www.educative.io/answers/how-to-generate-random-numbers-in-java)
+* [How to Pass by Reference in Java on educative.io](https://www.educative.io/edpresso/how-to-pass-by-reference-in-java)
+* [HashTable in Java on GeeksForGeeks](https://www.geeksforgeeks.org/hashtable-in-java/)
+* [Hashing in Java on GeeksForGeeks](https://www.geeksforgeeks.org/hashing-in-java/)
+* [How to Iterate through Hash table in Java on GeeksForGeeks](https://www.geeksforgeeks.org/how-to-iterate-through-hashtable-in-java/)
+* [How to Approach a Design Problem like Vending Machine on StackOverFlow](https://stackoverflow.com/questions/1127478/how-to-approach-design-problems-like-design-a-vending-machine)
 Resources
 
 * [Toptal's Gitignore.io](https://www.toptal.com/developers/gitignore)
