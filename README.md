@@ -51,6 +51,12 @@ Guides:
 * [Calling a Class from a Different File by Henrik Frank](http://www.henrikfrank.dk/abaptips/javaforsap/javabasics/calling_class_i_another_file.htm)
 * [Show simple open file dialog using JFileChooser by Nam Ha Minh](https://mail.codejava.net/java-se/swing/show-simple-open-file-dialog-using-jfilechooser)
 * [Norman Pietek's Guide on Gson](https://futurestud.io/tutorials/gson-mapping-of-arrays-and-lists-of-objects)
+* [Program that will remember where a file is stored. On StackOverFlow](https://stackoverflow.com/questions/59089139/i-want-to-write-a-program-that-can-remember-where-it-stored-a-file)
+* [Preferences.get on Microsoft Docs](https://docs.microsoft.com/en-us/dotnet/api/java.util.prefs.preferences.get?view=xamarin-android-sdk-12)
+* [Java Preferences API on amitph](https://www.amitph.com/introduction-to-java-preferences-api/)
+* [How to clear the Console on StackOverFlow](https://stackoverflow.com/questions/2979383/how-to-clear-the-console/33379766#33379766)
+* [Clear the Console on Java on DelftStack](https://www.delftstack.com/howto/java/java-clear-console/)
+* [Types of Exceptions in Java by Stackify](https://stackify.com/types-of-exceptions-java/)
 
 Resources
 
