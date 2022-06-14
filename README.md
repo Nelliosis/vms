@@ -82,6 +82,13 @@ Guides:
 * [What is a Constant in Java and how to declare it? by Edureka](https://www.edureka.co/blog/what-is-java-constant/)
 * [StoneHill CS104's NumberFormatException example](https://web.stonehill.edu/compsci/CS104/Stuff/Exception%20examples.pdf)
 * [java.util.NoSuchElementException - Scanner reading user input on StackOverFlow](https://stackoverflow.com/questions/13042008/java-util-nosuchelementexception-scanner-reading-user-input)
+* [Java logging through multiple classes on StackOverFlow](https://stackoverflow.com/questions/20737880/java-logging-through-multiple-classes)
+* [Disable showing logs on console programmatically on StackOverFlow](https://stackoverflow.com/questions/68471943/disable-showing-logs-on-console-programmatically)
+* [Is there a way to disable java.util.logging and enable it back later? on StackOverFlow](https://stackoverflow.com/questions/50533856/is-there-a-way-to-disable-java-util-logging-and-enable-it-back-later)
+* [Logging in Java – Best Practices and Tips on SolarWinds PaperTrail](https://www.papertrail.com/solution/tips/logging-in-java-best-practices-and-tips/)
+* [Standard way to implement a Logger across classes in Java? on StackOverFlow](https://stackoverflow.com/questions/26600757/standard-way-to-implement-a-logger-across-classes-in-java)
+* [Java.util.logging Examples by Rohit Joshi on Java Code Geeks](https://examples.javacodegeeks.com/core-java/util/logging/java-util-logging-example/)
+* [Good examples using java.util.logging [closed] on StackOverFlow](https://stackoverflow.com/questions/5950557/good-examples-using-java-util-logging)
 
 Resources
 
