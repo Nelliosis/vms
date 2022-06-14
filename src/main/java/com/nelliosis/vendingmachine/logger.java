@@ -10,7 +10,7 @@ import java.util.logging.SimpleFormatter;
 /*
  * My entire logging class came from this StackOverFlow thread.
  * All credits go to them.
- * Visit: https://stackoverflow.com/questions/68471943/disable-showing-logs-on-console-programmatically
+ * Visit: https://stackoverflow.com/questions/20737880/java-logging-through-multiple-classes
  */
 
 public class logger {
