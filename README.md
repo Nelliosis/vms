@@ -100,6 +100,8 @@ Download the project using Git with
 git clone https://github.com/Nelliosis/vms.git
 ```
 
+or in GitHub, click the green button that says `code` and select `Download ZIP`.
+
 Extract the project and run `Application.java` in:
 
 ```bash
