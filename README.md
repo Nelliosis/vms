@@ -10,7 +10,7 @@ Java 11 base application.
 * AssertJ
 * Mockito
 * Json.org
-* Gson
+* J-Text-Utils
 
 ### Support
 
@@ -89,6 +89,8 @@ Guides:
 * [Standard way to implement a Logger across classes in Java? on StackOverFlow](https://stackoverflow.com/questions/26600757/standard-way-to-implement-a-logger-across-classes-in-java)
 * [Java.util.logging Examples by Rohit Joshi on Java Code Geeks](https://examples.javacodegeeks.com/core-java/util/logging/java-util-logging-example/)
 * [Good examples using java.util.logging [closed] on StackOverFlow](https://stackoverflow.com/questions/5950557/good-examples-using-java-util-logging)
+* [How to store printStackTrace into a string [duplicate] on StackOverFlow](https://stackoverflow.com/questions/4812570/how-to-store-printstacktrace-into-a-string)
+* [e.printStackTrace(); in string on StackOverFlow](https://stackoverflow.com/questions/7242596/e-printstacktrace-in-string)
 
 Resources
 
