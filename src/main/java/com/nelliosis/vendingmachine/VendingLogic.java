@@ -3,6 +3,7 @@ package com.nelliosis.vendingmachine;
 import java.util.Hashtable;
 import java.util.Scanner;
 import java.util.Map.Entry;
+import java.util.logging.Level;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,7 +19,7 @@ public class VendingLogic extends Money {
             JSONObject item = items.getJSONObject(i);
             hashtable.put(codes[i], item);
         }
-
+        logger.log(Level.INFO, "Items hashed to codes.");
     }
 
     public void PrintTable(Hashtable<Integer, JSONObject> ht, int length) {
@@ -40,17 +41,20 @@ public class VendingLogic extends Money {
 
         // declare a new TextTable instance and print
         TextTable table = new TextTable(columns, data);
+        logger.log(Level.FINE, "Table successfully printed.");
         table.printTable();
     }
 
     public boolean KeyExists(int key, int VendingCodes[]) {
         for (int i = 0; i < VendingCodes.length; i++) {
             if (key == VendingCodes[i]) {
+                logger.log(Level.INFO, "Key exists.");
                 return true;
             } else {
                 continue;
             }
         }
+        logger.log(Level.WARNING, "Key entered does not match any known keys.");
         return false;
     }
 
@@ -69,8 +73,10 @@ public class VendingLogic extends Money {
         if (value == 0) {
             try {
                 value = Integer.parseInt(key);
+                logger.log(Level.FINE, "Selection is a valid integer.");
                 correct = true;
             } catch (NumberFormatException e) {
+                logger.log(Level.WARNING, "Selection is not a valid integer. Reprompting user.");
                 System.out.println("Bad choice. Reenter:");
             }
         }
@@ -80,8 +86,10 @@ public class VendingLogic extends Money {
             try {
                 key = input.next();
                 value = Integer.parseInt(key);
+                logger.log(Level.FINE, "Selection is a valid integer.");
                 correct = true;
             } catch (NumberFormatException e) {
+                logger.log(Level.WARNING, "Selection is not a valid integer. Reprompting user.");
                 System.out.println("Bad choice. Reenter:");
             }
         }

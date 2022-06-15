@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.logging.Level;
 import java.util.prefs.Preferences;
 
 public class FileManipulator {
@@ -43,15 +44,19 @@ public class FileManipulator {
                 // if in any of the variables point to null, ask to try again
                 this.file = FileChooser.getSelectedFile();
                 this.FilePath = file.getAbsolutePath();
+                logger.log(Level.INFO, "File selection succeeded.");
                 break;
             } catch (NullPointerException e) {
+                logger.log(Level.WARNING, "Caught NullPointerException at" + FileManipulator.class.getName());
+                logger.log(Level.INFO, "User cancelled selection. Trying again.");
                 System.out.print("You must choose a file to load the program. Try again? [Y/N]: ");
                 ch = input.next().charAt(0);
             }
 
             // If the user selects no, the program will exit.
             if (ch == 'n' || ch == 'N') {
-                System.out.println("Exiting program.");
+                logger.log(Level.SEVERE, "User cancelled selection. No file to initialize. Closing with status 1.");
+                System.err.println("Program cannot run without initializing a file.");
                 System.exit(1);
             }
         } while (ch == 'Y' || ch == 'y');
@@ -60,12 +65,14 @@ public class FileManipulator {
 
         // store JSON as string into a variable
         this.FileData = new String(Files.readAllBytes(Paths.get(this.FilePath)));
+        logger.log(Level.FINE, "File parsed.");
     }
 
     public void LoadData() throws IOException {
         this.file = new File(RetrieveFile());
         this.FilePath = RetrieveFile();
         this.FileData = new String(Files.readAllBytes(Paths.get(this.FilePath)));
+        logger.log(Level.INFO, "File loaded from: " + this.FilePath);
     }
 
     public void SaveFile() {
@@ -73,8 +80,10 @@ public class FileManipulator {
         try {
             this.prefs.put("PREF_PATH", this.FilePath);
             System.out.println("File " + this.file.getName() + " has been stored");
+            logger.log(Level.INFO, "File selection stored in memory.");
         } catch (Exception e) {
-            throw e;
+            System.err.println("Problem in saving file. Exiting.");
+            logger.log(Level.SEVERE, "Problem in file saving. See trace: " + logger.TraceToString(e));
         }
     }
 
@@ -82,9 +91,10 @@ public class FileManipulator {
         // destroy the remembered path
         try {
             this.prefs.remove("PREF_PATH");
+            logger.log(Level.WARNING, "File selection removed at command.");
         } catch (Exception e) {
-            System.out.println("Something went wrong while deleting the preference. See:");
-            e.printStackTrace();
+            System.err.println("Something went wrong while deleting the preference. See:");
+            logger.log(Level.SEVERE, "Delete preference failed. See trace: " + logger.TraceToString(e));
         }
 
     }
@@ -93,8 +103,10 @@ public class FileManipulator {
 
         // return the path if it exists, if not return null
         try {
+            logger.log(Level.INFO, "File retrieved on stored preference path.");
             return this.prefs.get("PREF_PATH", null);
         } catch (Exception e) {
+            logger.log(Level.WARNING, "No file stored on preference path.");
             return null;
         }
 
@@ -103,12 +115,14 @@ public class FileManipulator {
     public JSONObject GetFileConfig() {
         JSONObject object = new JSONObject(this.FileData);
         JSONObject config = object.getJSONObject("config");
+        logger.log(Level.INFO, "JSON config retrieved.");
         return config;
     }
 
     public JSONArray GetFileItems() {
         JSONObject object = new JSONObject(this.FileData);
         JSONArray items = object.getJSONArray("items");
+        logger.log(Level.INFO, "JSON items retrieved.");
         return items;
     }
 
@@ -127,22 +141,26 @@ public class FileManipulator {
         for (int i = 0; i < length; i++) {
             Codes[i] = (int) Math.floor(Math.random() * (max - min + 1) + min);
         }
-
+        logger.log(Level.FINE, "Vending codes initialized.");
         return Codes;
     }
 
     public int ParseConfigColumn(JSONObject config) {
         try {
+            logger.log(Level.INFO, "Config column data retrieved.");
             return config.getInt("column");
         } catch (JSONException e) {
+            logger.log(Level.WARNING, "Config column not an int. Parsed as string then into int.");
             return Integer.parseInt((config.getString("columns")));
         }
     }
 
     public int ParseConfigRow(JSONObject config) {
         try {
+            logger.log(Level.INFO, "Config row data retrieved.");
             return config.getInt("rows");
         } catch (JSONException e) {
+            logger.log(Level.WARNING, "Config row not an int. Parsed as string then into int.");
             return Integer.parseInt((config.getString("rows")));
         }
     }
